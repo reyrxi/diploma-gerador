@@ -1,90 +1,109 @@
-# 📄 Gerador de Diploma e Histórico Escolar
+﻿# Gerador de Diploma e Historico Escolar
 
-Aplicativo desktop para preenchimento automático de modelos Word de **Diploma** e **Histórico Escolar**, desenvolvido em Python com interface gráfica.
+Aplicativo desktop para preenchimento automatico de modelos Word de **Diploma** e **Historico Escolar**, desenvolvido em Python com interface grafica.
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 - Preenche automaticamente modelos `.docx` com os dados do aluno
-- Suporte a **caixas de texto**, tabelas, cabeçalhos e rodapés
-- Preserva a formatação original do documento (negrito, itálico, fontes)
-- Suporte a até **40 disciplinas** com notas individuais
-- Data por extenso gerada automaticamente (`01/03/2024` → `1 de março de 2024`)
-- Dados do aluno compartilhados entre Diploma e Histórico — preencha uma vez, gere os dois
-- Pode ser distribuído como `.exe` sem precisar instalar Python no PC de destino
+- Suporte a **caixas de texto**, tabelas, cabecalhos e rodapes
+- Preserva a formatacao original do documento (negrito, italico, fontes)
+- Suporte a ate **40 disciplinas** com notas individuais
+- Data por extenso gerada automaticamente (`01/03/2024` -> `1 de marco de 2024`)
+- Dados do aluno compartilhados entre Diploma e Historico - preencha uma vez, gere os dois
+- Pode ser distribuido como `.exe` sem precisar instalar Python no PC de destino
 
 ---
 
-## 🖥️ Interface
+## Interface
 
-| Aba | Conteúdo |
+| Aba | Conteudo |
 |---|---|
-| 👤 Dados do Aluno | Campos pessoais compartilhados entre os dois documentos |
-| 📋 Histórico Escolar | Data e configurações específicas do histórico |
-| 🎓 Diploma | Número de registro, livro, folha e dados específicos do diploma |
-| 📚 Disciplinas | Notas/situação de cada disciplina (nome é só referência visual) |
+| Dados do Aluno | Campos pessoais compartilhados entre os dois documentos |
+| Historico Escolar | Data e configuracoes especificas do historico |
+| Diploma | Numero de registro, livro, folha e dados especificos do diploma |
+| Disciplinas | Notas/situacao de cada disciplina (nome e so referencia visual) |
 
 ---
 
-## 📦 Requisitos
+## Estrutura do Projeto
 
-- Python 3.9 ou superior
+```
+diploma-gerador/
++-- main.py              # Ponto de entrada
++-- constants.py         # Textos dos guias de placeholders
++-- requirements.txt     # Dependencias Python
++-- core/
+|   +-- document.py      # Substituicao de placeholders no .docx
+|   +-- dates.py         # Formatacao de datas por extenso
++-- ui/
+    +-- app.py           # Janela principal (DiplomaApp)
+    +-- tabs.py          # Construtores de abas e DisciplinasTab
+    +-- widgets.py       # ToolTip e ScrollFrame
+    +-- fields.py        # Helpers de campos de formulario
+```
+
+---
+
+## Requisitos
+
+- Python 3.10 ou superior
 - Windows 10/11
 
 ---
 
-## 🚀 Instalação
+## Instalacao
 
-**1. Clone o repositório**
+**1. Clone o repositorio**
 ```bash
 git clone https://github.com/reyrxi/diploma-gerador
-
+cd diploma-gerador
 ```
 
-**2. Instale as dependências**
+**2. Instale as dependencias**
 ```bash
-pip install python-docx pyinstaller
+pip install -r requirements.txt
 ```
 
-> Se `pip` não for reconhecido, use:
+> Se `pip` nao for reconhecido, use:
 > ```bash
-> py -m pip install python-docx pyinstaller
+> py -m pip install -r requirements.txt
 > ```
 
 ---
 
-## ▶️ Como Rodar
+## Como Rodar
 
 ```bash
-python app.py
+python main.py
 ```
 
 ---
 
-## 🔨 Como Gerar o `.EXE`
+## Como Gerar o `.EXE`
 
 ```bash
-py -m PyInstaller --onefile --windowed --name GeradorDiploma app.py
+py -m PyInstaller --onefile --windowed --name GeradorDiploma main.py
 ```
 
-O arquivo **`GeradorDiploma.exe`** será gerado em `dist\`.  
+O arquivo **`GeradorDiploma.exe`** sera gerado em `dist\`.
 Esse arquivo pode ser copiado para qualquer computador Windows sem precisar instalar Python.
 
-> ⚠️ O Windows pode exibir um aviso de segurança na primeira execução. Clique em **"Mais informações" → "Executar assim mesmo"**.
+> O Windows pode exibir um aviso de seguranca na primeira execucao. Clique em **"Mais informacoes" -> "Executar assim mesmo"**.
 
 ---
 
-## 📄 Como Preparar os Modelos Word
+## Como Preparar os Modelos Word
 
-Abra seu modelo `.docx` e substitua os campos variáveis pelos **placeholders** abaixo.  
+Abra seu modelo `.docx` e substitua os campos variaveis pelos **placeholders** abaixo.
 Use **Localizar & Substituir** (`Ctrl+H`) no Word para fazer as trocas rapidamente.
 
-O programa substitui os placeholders em **qualquer lugar do documento**: parágrafos normais, caixas de texto, tabelas, cabeçalhos e rodapés.
+O programa substitui os placeholders em **qualquer lugar do documento**: paragrafos normais, caixas de texto, tabelas, cabecalhos e rodapes.
 
 ---
 
-### 👤 Placeholders — Dados do Aluno (comuns aos dois documentos)
+### Placeholders - Dados do Aluno (comuns aos dois documentos)
 
 | Campo | Placeholder |
 |---|---|
@@ -94,85 +113,85 @@ O programa substitui os placeholders em **qualquer lugar do documento**: parágr
 | Naturalidade (cidade) | `{{NATURALIDADE}}` |
 | UF | `{{UF}}` |
 | Naturalidade + UF combinados | `{{NATURALIDADE_UF}}` |
-| Filiação 1 (1º responsável) | `{{FILIACAO_1}}` |
-| Filiação 2 (2º responsável) | `{{FILIACAO_2}}` |
+| Filiacao 1 (1o responsavel) | `{{FILIACAO_1}}` |
+| Filiacao 2 (2o responsavel) | `{{FILIACAO_2}}` |
 | CPF | `{{CPF}}` |
 | RG | `{{RG}}` |
-| Órgão emissor do RG | `{{ORGAO_EMISSOR}}` |
+| Orgao emissor do RG | `{{ORGAO_EMISSOR}}` |
 | Curso anterior | `{{CURSO_ANT}}` |
 | Estabelecimento anterior | `{{ESTAB_ANT}}` |
-| Ano de conclusão anterior | `{{ANO_ANT}}` |
+| Ano de conclusao anterior | `{{ANO_ANT}}` |
 | Cidade do curso anterior | `{{CIDADE_ANT}}` |
 | Turma | `{{TURMA}}` |
-| Data de início | `{{DATA_INICIO}}` |
-| Data de término | `{{DATA_TERMINO}}` |
-| Frequência (%) | `{{FREQUENCIA}}` |
+| Data de inicio | `{{DATA_INICIO}}` |
+| Data de termino | `{{DATA_TERMINO}}` |
+| Frequencia (%) | `{{FREQUENCIA}}` |
 | Resultado | `{{RESULTADO}}` |
-| Código SISTEC | `{{COD_SISTEC}}` |
-| Código Censo | `{{COD_CENSO}}` |
-| Carga horária de estágio | `{{CARGA_ESTAGIO}}` |
+| Codigo SISTEC | `{{COD_SISTEC}}` |
+| Codigo Censo | `{{COD_CENSO}}` |
+| Carga horaria de estagio | `{{CARGA_ESTAGIO}}` |
 
 ---
 
-### 📋 Placeholders — Histórico Escolar
+### Placeholders - Historico Escolar
 
 | Campo | Placeholder |
 |---|---|
 | Data por extenso | `{{DATA_HIST}}` |
 | Data no formato curto | `{{DATA_HIST_CURTA}}` |
 
-**Notas das disciplinas** — as disciplinas já estão no modelo, coloque apenas o placeholder da nota na célula correspondente:
+**Notas das disciplinas** - as disciplinas ja estao no modelo, coloque apenas o placeholder da nota na celula correspondente:
 
 | Disciplina | Placeholder da nota |
 |---|---|
-| 1ª disciplina | `{{NOTA_1}}` |
-| 2ª disciplina | `{{NOTA_2}}` |
-| 3ª disciplina | `{{NOTA_3}}` |
-| *(até 40)* | `{{NOTA_40}}` |
+| 1a disciplina | `{{NOTA_1}}` |
+| 2a disciplina | `{{NOTA_2}}` |
+| 3a disciplina | `{{NOTA_3}}` |
+| *(ate 40)* | `{{NOTA_40}}` |
 
 ---
 
-### 🎓 Placeholders — Diploma
+### Placeholders - Diploma
 
 | Campo | Placeholder |
 |---|---|
 | Data do diploma por extenso | `{{DATA_DIPLOMA}}` |
 | Data do diploma (curta) | `{{DATA_DIPLOMA_CURTA}}` |
-| Data de conclusão do curso | `{{DATA_CONCLUSAO}}` |
-| Data de expedição do RG | `{{EXPEDIDO_EM}}` |
-| Número do registro | `{{NUM_REGISTRO}}` |
+| Data de conclusao do curso | `{{DATA_CONCLUSAO}}` |
+| Data de expedicao do RG | `{{EXPEDIDO_EM}}` |
+| Numero do registro | `{{NUM_REGISTRO}}` |
 | Folha | `{{FOLHA}}` |
-| Livro nº | `{{LIVRO}}` |
+| Livro nr | `{{LIVRO}}` |
 | Nome da escola emissora | `{{NOME_ESCOLA}}` |
-| Município/UF da escola | `{{MUNICIPIO_UF}}` |
+| Municipio/UF da escola | `{{MUNICIPIO_UF}}` |
 
 ---
 
-## 💡 Dicas
+## Dicas
 
-- O campo **"Disciplina"** na aba Disciplinas é apenas referência visual — o nome não é inserido no documento, somente a nota.
-- Use **"Gerar Ambos"** para gerar Histórico e Diploma em sequência sem precisar preencher os dados duas vezes.
-- Certifique-se de que o modelo está no formato `.docx` (não `.doc`). Para converter, abra o arquivo no Word e salve como `.docx`.
+- O campo **"Disciplina"** na aba Disciplinas e apenas referencia visual - o nome nao e inserido no documento, somente a nota.
+- Use **"Gerar Ambos"** para gerar Historico e Diploma em sequencia sem precisar preencher os dados duas vezes.
+- Certifique-se de que o modelo esta no formato `.docx` (nao `.doc`). Para converter, abra o arquivo no Word e salve como `.docx`.
 
 ---
 
-## ❓ Problemas Comuns
+## Problemas Comuns
 
-| Problema | Solução |
+| Problema | Solucao |
 |---|---|
-| `pip` não reconhecido | Use `py -m pip install ...` ou reinstale o Python marcando **"Add to PATH"** |
-| Placeholder não substituído | Verifique se está escrito exatamente igual, incluindo `{{` e `}}` |
-| Formatação sumiu | O placeholder no modelo deve ter a formatação desejada (ex: negrito) |
-| Arquivo não abre | O modelo precisa ser `.docx`, não `.doc` |
-| Antivírus bloqueia o `.exe` | Adicione uma exceção no antivírus — falso positivo comum com PyInstaller |
+| `pip` nao reconhecido | Use `py -m pip install -r requirements.txt` ou reinstale o Python marcando **"Add to PATH"** |
+| Placeholder nao substituido | Verifique se esta escrito exatamente igual, incluindo `{{` e `}}` |
+| Formatacao sumiu | O placeholder no modelo deve ter a formatacao desejada (ex: negrito) |
+| Arquivo nao abre | O modelo precisa ser `.docx`, nao `.doc` |
+| Antivirus bloqueia o `.exe` | Adicione uma excecao no antivirus - falso positivo comum com PyInstaller |
 | Janela fecha sozinha ao abrir o `.exe` | Gere novamente sem `--windowed` para ver o erro no terminal |
 | Erro ao gerar EXE | Execute `py -m pip install --upgrade pyinstaller` e tente novamente |
 
 ---
 
-## 🛠️ Tecnologias
+## Tecnologias
 
-- [Python](https://python.org) — linguagem principal
-- [python-docx](https://python-docx.readthedocs.io) — manipulação de arquivos Word
-- [tkinter](https://docs.python.org/3/library/tkinter.html) — interface gráfica (incluso no Python)
-- [PyInstaller](https://pyinstaller.org) — geração do executável `.exe`
+- [Python](https://python.org) - linguagem principal
+- [python-docx](https://python-docx.readthedocs.io) - manipulacao de arquivos Word
+- [tkinter](https://docs.python.org/3/library/tkinter.html) - interface grafica (incluso no Python)
+- [PyInstaller](https://pyinstaller.org) - geracao do executavel `.exe`
